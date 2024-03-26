@@ -1,0 +1,25 @@
+{
+  "name": "jeremi.web-ones.com",
+  "version": "0.0.1",
+  "description": "This is my personale resume and portafolio",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Resume",
+    "Personal",
+    "Demos"
+  ],
+  "author": "Jeremi Alcala",
+  "license": "ISC",
+  "dependencies": {
+    "cjs": "^0.0.11",
+    "ejs": "^3.1.9",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "get-user-locale": "^2.3.1",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
+  }
+}
