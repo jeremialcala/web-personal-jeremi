@@ -46,7 +46,7 @@ app.get('/chat/:bot_id', (req, res) => {
                     "Content-Length": _res.headers["content-length"],
                     "X-Processing-Time": _res.headers["x-processing-time"]
                 });
-                res.write(JSON.stringify(_res))
+                res.write(JSON.stringify(_res));
             }
         );
 });
