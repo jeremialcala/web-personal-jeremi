@@ -44,6 +44,7 @@ app.get('/chat/:bot_id', (req, res) => {
                     "X-Processing-Time": _res.headers["x-processing-time"]
                 });
                 res.write(JSON.stringify(_res.data));
+                res.end();
             }
         );
 });
