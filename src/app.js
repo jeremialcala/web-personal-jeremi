@@ -30,10 +30,7 @@ app.get('/', (req, res) => {
 
 app.get('/chat/:bot_id', (req, res) => {
     console.log(req.query);
-    
-    res.writeHead(200, {
-        "Content-Type": "Application/Json"
-    });
+
     chat.chatbot_verify(
         bot_id=req.params["bot_id"], 
         mode=req.query["hub.mode"], 
@@ -41,12 +38,12 @@ app.get('/chat/:bot_id', (req, res) => {
         challenge=(req.query["hub.challenge"] == null) ? null : req.query["hub.challenge"] 
         ).then(
             (_res) => {
-                res.writeHead(200, {
+                res.writeHead(_res.data[0], {
                     "Content-Type": "Application/Json",
                     "Content-Length": _res.headers["content-length"],
                     "X-Processing-Time": _res.headers["x-processing-time"]
                 });
-                res.write(JSON.stringify(_res));
+                res.write(JSON.stringify(_res.data));
             }
         );
 });
