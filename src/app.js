@@ -26,6 +26,15 @@ app.get('/', (req, res) => {
     res.render("index")
 });
 
+app.get('/chat', (req, res) => {
+    console.log(req.query);
+    res.writeHead(200, {
+        "Content-Type": "Application/Json"
+    });
+    res.write(JSON.stringify({"code": 200, "msg": "ALL OK"}));
+    res.end();
+
+});
 
 app.listen(port, () => {    
     console.log(`This app is running on port:${port}`);
