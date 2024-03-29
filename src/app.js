@@ -5,6 +5,8 @@ const path = require("path");
 const port = process.env.PORT;
 const app = express();
 
+const chat = require("./chat");
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
 app.use(express.static(path.join(__dirname, '../public')));
@@ -26,14 +28,27 @@ app.get('/', (req, res) => {
     res.render("index")
 });
 
-app.get('/chat', (req, res) => {
+app.get('/chat/:bot_id', (req, res) => {
     console.log(req.query);
+    
     res.writeHead(200, {
         "Content-Type": "Application/Json"
     });
-    res.write(JSON.stringify({"code": 200, "msg": "ALL OK"}));
-    res.end();
-
+    chat.chatbot_verify(
+        bot_id=req.params["bot_id"], 
+        mode=req.query["hub.mode"], 
+        verify_token=req.query["hub.verify_token"],
+        challenge=(req.query["hub.challenge"] == null) ? null : req.query["hub.challenge"] 
+        ).then(
+            (_res) => {
+                res.writeHead(200, {
+                    "Content-Type": "Application/Json",
+                    "Content-Length": _res.headers["content-length"],
+                    "X-Processing-Time": _res.headers["x-processing-time"]
+                });
+                res.write(JSON.stringify(_res))
+            }
+        );
 });
 
 app.listen(port, () => {    
