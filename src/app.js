@@ -38,7 +38,7 @@ app.get('/chat/:bot_id', (req, res) => {
         challenge=(req.query["hub.challenge"] == null) ? null : req.query["hub.challenge"] 
         ).then(
             (_res) => {
-                res.writeHead(_res.data[0], {
+                res.writeHead(_res.data[1], {
                     "Content-Type": "Application/Json",
                     "Content-Length": _res.headers["content-length"],
                     "X-Processing-Time": _res.headers["x-processing-time"]
