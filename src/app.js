@@ -47,6 +47,7 @@ app.get('/chat/:bot_id', (req, res) => {
 app.post('/chat/:bot_id', (req, res) => {
     console.log(req.query);
     console.log(req.body);
+    chat.chatbot_messages(bot_id=req.params["bot_id"], data=req.body);    
     res.status(200).send("OK");               
     res.end();
 });
