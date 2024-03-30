@@ -44,6 +44,13 @@ app.get('/chat/:bot_id', (req, res) => {
         );
 });
 
+app.post('/chat/:bot_id', (req, res) => {
+    console.log(req.query);
+    console.log(req.body);
+    res.status(200).send("OK");               
+    res.end();
+});
+
 app.listen(port, () => {    
     console.log(`This app is running on port:${port}`);
 });
