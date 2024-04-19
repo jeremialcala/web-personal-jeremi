@@ -39,6 +39,10 @@ app.get('/scanner', (req, res) => {
     res.render("scanner/index")
 });
 
+app.get('/nimiq', (req, res) => {
+    res.render("nimi/index")
+});
+
 app.get('/chat/:bot_id', (req, res) => {
     console.log(req.query);
 
