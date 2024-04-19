@@ -4,10 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
-        <link rel="stylesheet" href="../css/profile_style.css">
+        <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
         <style>
             body {
                 background-color: rgb(34, 33, 33);
@@ -75,9 +74,14 @@
             <div class="card p-4">
                 <div class=" image d-flex flex-column justify-content-center align-items-center">
                     
-                    <div style="width: 200px" id="reader">     
+                    <div id="video-container">
+                        <video id="qr-video"></video>
                     </div>
-                    
+
+                    <div class=" d-flex mt-2"> 
+                        <button class="btn1 btn-dark" id="start-button">Leer QR</button> 
+                        <button class="btn1 btn-dark" id="stop-button" hidden>Detener</button> 
+                    </div>
                     <br>   
                     <span id="cam-qr-result">None</span>
 
@@ -96,23 +100,42 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     
-    <script src="../js/html5-qrcode.min.js"></script>
+    <!--script src="js/html5-qrcode.min.js"></script-->
     <!--script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script-->
     
-    <script>
+    <script src="js/qr-scanner.umd.min.js"></script>
+    <!--script src="js/qr-scanner.min.js"></script-->
 
-        function onScanSuccess(decodedText, decodedResult) {
-            // Handle on success condition with the decoded text or result.
-            document.getElementById("cam-qr-result").textContent = decodedText;
-            console.log(`Scan result: ${decodedText}`, decodedResult);
-            window.location.href = "/profile"
-            html5QrcodeScanner.clear(); 
+    <script>
+        // import QrScanner from "js/qr-scanner.min.js";
+        const video = document.getElementById('qr-video');
+        const videoContainer = document.getElementById('video-container');
+        const camQrResult = document.getElementById('cam-qr-result');
+
+        document.getElementById('start-button').addEventListener('click', () => {
+            scanner.start();
+            document.getElementById('start-button').hidden = false;
+            document.getElementById('stop-button').hidden = true;
+        });
+
+        document.getElementById('stop-button').addEventListener('click', () => {
+            scanner.stop();
+        });
+
+        function setResult(label, result) {
+            console.log(result.data);
+            scanner.stop();
+            window.location.href = "/profile";
         }
 
-        var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
-        html5QrcodeScanner.render(onScanSuccess);
+        const scanner = new QrScanner(video, result => setResult(camQrResult, result), {
+            onDecodeError: error => {
+                camQrResult.textContent = error;
+                camQrResult.style.color = 'inherit';
+            },
+            highlightScanRegion: true,
+            highlightCodeOutline: true,
+        });
 
     </script>
-
 </html>
