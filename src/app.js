@@ -5,6 +5,9 @@ const path = require("path");
 const port = process.env.PORT;
 const app = express();
 
+var httpProxy = require('http-proxy');
+var proxy = httpProxy.createProxyServer({});
+
 const chat = require("./chat");
 
 app.use(express.json());
@@ -26,6 +29,14 @@ app.engine('html', require('ejs').renderFile);
 
 app.get('/', (req, res) => {
     res.render("index")
+});
+
+app.get('/profile', (req, res) => {
+    res.render("profile/index")
+});
+
+app.get('/scanner', (req, res) => {
+    res.render("scanner/index")
 });
 
 app.get('/chat/:bot_id', (req, res) => {
@@ -50,6 +61,16 @@ app.post('/chat/:bot_id', (req, res) => {
     chat.chatbot_messages(bot_id=req.params["bot_id"], data=req.body);    
     res.status(200).send("OK");               
     res.end();
+});
+
+app.get('/docs', (req, res) => {
+    console.log(req.query);
+    proxy.web(req, res, {target: "http://127.0.0.1:5002/"})
+});
+
+app.get('/openapi.json', (req, res) => {
+    console.log(req.query);
+    proxy.web(req, res, {target: "http://127.0.0.1:5002/"})
 });
 
 app.listen(port, () => {    
