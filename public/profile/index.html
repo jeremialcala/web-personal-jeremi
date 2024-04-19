@@ -18,8 +18,18 @@
             height: 276px;
             width: 223px;           
         }
+
+        .btn-back {
+            height: 40px;
+            width: 150px;
+            border-radius: 10px;           
+        }
         .btn-secondary {
             border-radius: 20%;
+        }
+
+        .top-divider{
+            padding-top: 1rem;
         }
     </style>
 </head>
@@ -44,6 +54,10 @@
                     <span class="idd2">Sistemas y Plataforma</span>                     
                 </div>
 
+                <div class=" px-2 rounded mt-4 date "> 
+                    <span class="join">Ingreso Abril,2024</span> 
+                </div>
+
                 <div class="text mt-3"> 
                     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas.<br>
                         <br> Nunc scelerisque viverra mauris in aliquam sem fringilla. </span> 
@@ -56,9 +70,13 @@
                     <span><i class="fa fa-linkedin"></i></span> 
                 </div>
                 
-                <div class=" px-2 rounded mt-4 date "> 
-                    <span class="join">Ingreso Abril,2024</span> 
+                
+                <div class="d-flex flex-row justify-content-center align-items-center top-divider">
+                    <button class="btn-back " onclick="window.location.href='/menu'"> 
+                        <span class="join">Regresar</span> 
+                    </button>
                 </div>
+                
             </div>
         </div>
     </div>
