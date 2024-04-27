@@ -9,6 +9,7 @@ var httpProxy = require('http-proxy');
 var proxy = httpProxy.createProxyServer({});
 
 const chat = require("./chat");
+const images = require("./image");
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
@@ -69,6 +70,12 @@ app.post('/chat/:bot_id', (req, res) => {
     chat.chatbot_messages(bot_id=req.params["bot_id"], data=req.body);    
     res.status(200).send("OK");               
     res.end();
+});
+
+app.get("/image", (req, res) => {
+    console.log(req.query);
+    proxy.web(req, res, {target: process.env.IMG_SERVER});
+
 });
 
 app.get('/docs', (req, res) => {

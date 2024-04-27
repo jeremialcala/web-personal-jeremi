@@ -179,17 +179,6 @@
             scanner.stop();
         });
 
-        // ####### File Scanning #######
-
-        fileSelector.addEventListener('change', event => {
-            const file = fileSelector.files[0];
-            if (!file) {
-                return;
-            }
-            QrScanner.scanImage(file, { returnDetailedScanResult: true })
-                .then(result => setResult(fileQrResult, result))
-                .catch(e => setResult(fileQrResult, { data: e || 'No QR code found.' }));
-        });
     </script>
 
     <style>
